@@ -28,14 +28,14 @@ SOFTWARE.
 * simple driver for ssd1306 displays
 */
 
-#ifndef _inc_ssd1306
-#define _inc_ssd1306
+#ifndef _inc_ssd1306_spi
+#define _inc_ssd1306_spi
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 #include <pico/stdlib.h>
-#include <hardware/i2c.h>
+#include <hardware/spi.h>
 
 /**
 *	@brief defines commands used in ssd1306
@@ -66,9 +66,10 @@ typedef enum {
 typedef struct {
     uint8_t width; 		/**< width of display */
     uint8_t height; 	/**< height of display */
-    uint8_t pages;		/**< stores pages of display (calculated on initialization*/
-    uint8_t address; 	/**< i2c address of display*/
-    i2c_inst_t *i2c_i; 	/**< i2c connection instance */
+    uint8_t pages;		/**< stores pages of display (calculated on initialization) */
+    spi_inst_t *spi_i; 	/**< spi connection instance */
+    uint8_t dc_pin;     /**< data/command pin */
+    uint8_t csn_pin;    /**< chip select pin */
     bool external_vcc; 	/**< whether display uses external vcc */ 
     uint8_t *buffer;	/**< display buffer */
     size_t bufsize;		/**< buffer size */
@@ -80,14 +81,13 @@ typedef struct {
 *	@param[in] p : pointer to instance of ssd1306_t
 *	@param[in] width : width of display
 *	@param[in] height : heigth of display
-*	@param[in] address : i2c address of display
-*	@param[in] i2c_instance : instance of i2c connection
+*	@param[in] spi_instance : instance of spi connection
 *	
 * 	@return bool.
 *	@retval true for Success
 *	@retval false if initialization failed
 */
-bool ssd1306_init(ssd1306_t *p, uint16_t width, uint16_t height, uint8_t address, i2c_inst_t *i2c_instance);
+bool ssd1306_init(ssd1306_t *p, uint16_t width, uint16_t height, spi_inst_t *spi_instance, uint8_t dc_pin, uint8_t csn_pin, uint8_t res_pin);
 
 /**
 *	@brief deinitialize display
