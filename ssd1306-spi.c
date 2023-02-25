@@ -43,10 +43,10 @@ inline static void fancy_write(spi_inst_t *spi, uint8_t csn_pin, uint8_t dc_pin,
     
     if(command){
         gpio_put(dc_pin, 0);
-        printf("[%s] dc_pin %i!\n", name, 0);
+        // printf("[%s] dc_pin %i!\n", name, 0);
     } else{
         gpio_put(dc_pin, 1);
-        printf("[%s] dc_pin %i!\n", name, 1);
+        // printf("[%s] dc_pin %i!\n", name, 1);
     }
     spi_write_blocking(spi, src, len);
 }
