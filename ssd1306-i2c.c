@@ -42,10 +42,14 @@ inline static void swap(int32_t *a, int32_t *b) {
 inline static void fancy_write(i2c_inst_t *i2c, uint8_t addr, const uint8_t *src, size_t len, char *name) {
     switch(i2c_write_blocking(i2c, addr, src, len, false)) {
     case PICO_ERROR_GENERIC:
+#ifdef DEBUG_PRINT
         printf("[%s] addr not acknowledged!\n", name);
+#endif
         break;
     case PICO_ERROR_TIMEOUT:
+#ifdef DEBUG_PRINT
         printf("[%s] timeout!\n", name);
+#endif
         break;
     default:
         //printf("[%s] wrote successfully %lu bytes!\n", name, len);
