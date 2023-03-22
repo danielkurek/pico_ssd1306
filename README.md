@@ -1,3 +1,9 @@
+# Fork info
+ 
+ This fork of the [original repo](https://github.com/daschr/pico-ssd1306) that implements SPI communication with SSD1306 display.
+
+# Original README
+
 [![example vid](ssd1306-example.gif)]()
 
 # pico-ssd1306
